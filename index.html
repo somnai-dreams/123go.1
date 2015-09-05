@@ -11,9 +11,11 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    
 
     <!--fonts-->
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,500,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -21,7 +23,7 @@
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <![endif]--> 
 </head>
 
 <body>
@@ -32,12 +34,14 @@
     <div class="menu-wide menu-big">
         <div class="menu-container">
             <div class="menu">
+                
                 <div class="menu-logo">
                     <a href="/index">
                         <span class="menu-span-logo">123GO </span>
                     </a>
                 </div>
-                <ul class="menu-bar">
+                <a href="#" class="toggle-panel"><i class="fa fa-bars fa-3x"></i></a>
+                <ul id="menu" class="menu-bar">
                     <li class="menu-active">
                         <a href="/index">
                             <span class="menu-span">HOME</span>
@@ -82,6 +86,7 @@
                     <label for="do">www.</label>
                     <input class="domain-text" placeholder="search for a domain" type="text" id="do">
                     <input class="domain-button" type="button" onclick="checkDomain($('#do').val());" value="SEARCH">
+                    <div class="domain-loading"></div>
                 </div>
             </div>
             <div style="padding: 0px 145px;">
@@ -233,15 +238,17 @@
     <script>
         function checkDomain(domain) {
 
-            //$('#av').html('<img style="height: 15px" src="http://maffrigby.com/wp-content/uploads/2014/03/gettestr-large-spinner-orange.gif" />');
+            $('.domain-loading').html('<i class="fa fa-refresh fa-2x fa-spin"></i>');
             $.getJSON("https://whois.apitruck.com/" + domain, function (data) {
                 available = data["response"]["registered"];
                 if (!available) {
+                    $('.domain-loading').html(' ');
                     $('#av').html("Your domain is available!");
                     $('#domain-result').addClass("domain-available");
                     $('#domain-result').removeClass("domain-unavailable");
                     $('#domain-result').slideDown();
                 } else {
+                    $('.domain-loading').html(' ');
                     $('#av').html("Your domain isn't available :(");
                     $('#domain-result').addClass("domain-unavailable");
                     $('#domain-result').removeClass("domain-available");
@@ -259,7 +266,6 @@
         
     $(window).scroll(function(){
         var $nav = $('.menu-wide');
-        console.log("small");
         if ($(document).scrollTop() > 100) {
             if ($nav.data('size') == 'big') {
                 $nav.removeClass("menu-big");
@@ -271,7 +277,6 @@
               //  }, 100);
             }
         } else {
-            console.log("big");
             if ($nav.data('size') == 'small') {
                 $nav.removeClass("menu-small");
                 $nav.addClass("menu-big");
@@ -282,6 +287,30 @@
             }  
         }
     });
+        
+        
+        $(document).ready(function() {
+            $('#menu').data('open','no');
+            $('.toggle-panel').click(function(e) {
+                if ($('#menu').data('open')=='no') {
+                    $('.toggle-panel').html("<i class=\"fa fa-times fa-3x\"></i>");
+                    $('.menu-wide').css('background', '#333333');
+                    $('#menu').toggleClass('menu-toggle');
+                    $('#menu').data('open','yes');
+                }
+                else {
+                    $('.toggle-panel').html("<i class=\"fa fa-bars fa-3x\"></i>");
+                    $('.menu-wide').css('background', '');
+                    $('#menu').removeClass('menu-toggle');
+                    $('#menu').data('open','no');
+                }
+                e.preventDefault();
+            });
+        });
+
+        
+                
+                   
     </script>
 </body>
 
