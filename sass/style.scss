@@ -1,3 +1,13 @@
 @import "_colors.scss";
 
+@import "_mediaquery.scss";
+
 @import "_body.scss";
+
+@include query(desktop){
+    @import "_desktop.scss";
+}  
+
+@include query(mobile-big){
+    @import "_mobile.scss";
+}   

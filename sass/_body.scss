@@ -1,19 +1,8 @@
-body {
-    width: 100%;
-    min-width: 984px;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-}
-
 .body-container {
     width:100% {}
     max-width: 984px;
     margin: auto;
-}
-
-
+}    
 
 textarea {
     outline: none;
@@ -30,15 +19,8 @@ input {
         -moz-appearance: none;
         -webkit-appearance: none;
     }
-}
+} 
 
-@mixin transition($time){
-        -webkit-transition: all ($time);
-    -moz-transition: all ($time);
-    -ms-transition: all ($time);
-    -o-transition: all ($time);
-    transition: all ($time);
-}
 
 /*/////////////////////////////////
  *			  Menu
@@ -50,12 +32,20 @@ input {
     position: fixed;
     top: 0;
     z-index: 1000;
+    -webkit-transition: height 0.3s;
+    -moz-transition: height 0.3s;
+    -ms-transition: height 0.3s;
+    -o-transition: height 0.3s;
+    transition: height 0.3s;
     
     &.menu-small{
         height: 50px;
-        @include transition(0.3s);
         .menu-container{
             height: 50px;
+            .menu{
+                height: 50px;
+                @include transition(0.3s);
+            }
         }
         span{
             height: 50px;
@@ -65,9 +55,12 @@ input {
     
     &.menu-big{
         height: 100px;
-        @include transition(0.3s);
         .menu-container{
             height: 100px;
+            .menu{
+                height: 100px;
+                @include transition(0.3s);
+            }
         }
         span{
             height: 100px;
@@ -86,7 +79,7 @@ input {
     max-width: 984px;
     height: inherit;
     display: inline-block;
-    background: $red;
+    @include transition(0.3s);
 }
 
 .menu-logo {
@@ -111,6 +104,10 @@ input {
             width: 20%;
             float: left;
         }
+        @include query(desktop){
+            position: relative !important;
+            right: 0 !important;
+        }
     }
     a {
         text-decoration: none;
@@ -121,8 +118,8 @@ input {
     }
     ul li a {
         span {
-            &:hover {
-                color: $darkblue;
+            &:hover { 
+                color: $darkblue; 
             }
         }
     }
@@ -162,7 +159,7 @@ input {
     vertical-align: middle;
     width: inherit;
 }
-
+         
 
 /*/////////////////////////////////
  *		   Front Slider
@@ -334,6 +331,12 @@ input {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.domain-loading{
+    position: absolute;
+    right: 24%;
+    top: 6px;
 }
 
 
